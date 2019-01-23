@@ -4,23 +4,18 @@
  *  Description:
  **************************************************************************** */
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-import java.util.Arrays;
-
 public class Percolation {
-    private static final int CLOSE = 0;
-    private static final int OPEN = 1;
-
-    private final int[] board;
+    private final boolean[] board;
     private final WeightedQuickUnionUF unionUF;
     private final int n;
     private int openCount;
 
     public Percolation(int n) {
         this.n = n;
-        board = new int[n * n + 2];
-        Arrays.fill(board, CLOSE);
+        board = new boolean[n * n + 2];
 
         unionUF = new WeightedQuickUnionUF(board.length);
 
@@ -36,7 +31,7 @@ public class Percolation {
 
         if (!isOpen(row, col)) {
             final int index = (row - 1) * n + col;
-            board[index] = OPEN;
+            board[index] = true;
             openCount += 1;
             int[][] dir = {
                 new int[] { -1, 0 },
@@ -59,7 +54,7 @@ public class Percolation {
         ensureRowCol(row, col);
 
         final int index = (row - 1) * n + col;
-        return board[index] == OPEN;
+        return board[index];
     }
 
     // is site (row, col) full?
@@ -84,6 +79,11 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
+        In in = new In(args[0]);      // input file
+        int n = in.readInt();         // n-by-n percolation system
 
+        Percolation perc = new Percolation(n);
+        System.out.println(perc.isFull(1, 1));
+        System.out.println(perc.isOpen(1, 1));
     }
 }
