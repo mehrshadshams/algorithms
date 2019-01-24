@@ -10,13 +10,10 @@ import edu.princeton.cs.algs4.StdStats;
 public class PercolationStats {
     private static final double CONFIDENCE_RATIO = 1.96;
 
-    private final int trials;
     private final double[] fractions;
 
     // perform trials independent experiments on an n-by-n grid
     public PercolationStats(int n, int trials) {
-        this.trials = trials;
-
         final int n2 = n * n;
 
         fractions = new double[trials];
@@ -24,17 +21,13 @@ public class PercolationStats {
             Percolation percolation = new Percolation(n);
 
             while (!percolation.percolates()) {
-                int next = StdRandom.uniform(n2);
-                int row = (next / n) + 1;
-                int col = (next % n) + 1;
+                int row = StdRandom.uniform(1, n+1);
+                int col = StdRandom.uniform(1, n+1);
 
-                if (percolation.isFull(row, col)) {
-                    percolation.open(row, col);
-                }
+                percolation.open(row, col);
             }
 
-            double frac = (double) percolation.numberOfOpenSites() / n2;
-            fractions[i] = frac;
+            fractions[i] = ((double) percolation.numberOfOpenSites()) / n2;
         }
     }
 
@@ -49,12 +42,12 @@ public class PercolationStats {
 
     // low  endpoint of 95% confidence interval
     public double confidenceLo() {
-        return mean() - ((CONFIDENCE_RATIO * stddev()) / Math.sqrt(trials));
+        return mean() - ((CONFIDENCE_RATIO * stddev()) / Math.sqrt(fractions.length));
     }
 
     // high endpoint of 95% confidence interval
     public double confidenceHi() {
-        return mean() + ((CONFIDENCE_RATIO * stddev()) / Math.sqrt(trials));
+        return mean() + ((CONFIDENCE_RATIO * stddev()) / Math.sqrt(fractions.length));
     }
 
     public static void main(String[] args) {
