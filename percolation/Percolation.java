@@ -5,20 +5,27 @@
  **************************************************************************** */
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     private final boolean[] board;
 
     private final WeightedQuickUnionUF unionUF;
+    private final WeightedQuickUnionUF topUnionUF;
     private final int n;
     private int openCount;
 
     public Percolation(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException();
+        }
+
         this.n = n;
         board = new boolean[n * n + 2];
 
         unionUF = new WeightedQuickUnionUF(board.length);
+        topUnionUF = new WeightedQuickUnionUF(board.length);
     }
 
     // open site (row, col) if it is not open already
@@ -36,7 +43,9 @@ public class Percolation {
 
             if (row == 1) {
                 unionUF.union(0, index);
-            } else if (row == n) {
+                topUnionUF.union(0, index);
+            }
+            if (row == n) {
                 unionUF.union(board.length - 1, index);
             }
 
@@ -44,7 +53,9 @@ public class Percolation {
                 int r = row + d[0];
                 int c = col + d[1];
                 if (r >= 1 && c >= 1 && r <= n && c <= n && isOpen(r, c)) {
-                    unionUF.union(index, rowColToIndex(r, c));
+                    int idx = rowColToIndex(r, c);
+                    unionUF.union(index, idx);
+                    topUnionUF.union(index, idx);
                 }
             }
         }
@@ -60,7 +71,7 @@ public class Percolation {
 
     // is site (row, col) full?
     public boolean isFull(int row, int col) {
-        return isOpen(row, col) && unionUF.connected(0, rowColToIndex(row, col));
+        return isOpen(row, col) && topUnionUF.connected(0, rowColToIndex(row, col));
     }
 
     // number of open sites
@@ -88,7 +99,16 @@ public class Percolation {
         int n = in.readInt();         // n-by-n percolation system
 
         Percolation perc = new Percolation(n);
-        System.out.println(perc.isFull(1, 1));
-        System.out.println(perc.isOpen(1, 1));
+        while (!in.isEmpty()) {
+            int i = in.readInt();
+            int j = in.readInt();
+            perc.open(i, j);
+            if (perc.numberOfOpenSites() == 231) {
+                StdOut.println("Full = " + perc.isFull(18, 1));
+            }
+        }
+
+        StdOut.println("Open = " + perc.numberOfOpenSites());
+        StdOut.println("Percolates = " + perc.percolates());
     }
 }
