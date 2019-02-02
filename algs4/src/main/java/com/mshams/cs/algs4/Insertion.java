@@ -1,6 +1,9 @@
 package com.mshams.cs.algs4;
 
-public class InsertionSort extends SortBase {
+import static com.mshams.cs.algs4.StdArray.exch;
+import static com.mshams.cs.algs4.StdArray.less;
+
+public class Insertion {
     public static void sort(Comparable[] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = i; j > 0; j--) {

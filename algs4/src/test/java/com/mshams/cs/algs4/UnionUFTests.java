@@ -3,6 +3,9 @@ package com.mshams.cs.algs4;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.mshams.cs.algs4.applications.QuickUnionUF;
+import com.mshams.cs.algs4.applications.UF;
+
 class UnionUFTests {
 
     @Test

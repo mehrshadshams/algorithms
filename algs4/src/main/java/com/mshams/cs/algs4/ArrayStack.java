@@ -3,6 +3,7 @@ package com.mshams.cs.algs4;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+@SuppressWarnings("unchecked")
 public class ArrayStack<Item> implements Stack<Item> {
     private Object[] objects;
     private int current;

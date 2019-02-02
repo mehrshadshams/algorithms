@@ -1,4 +1,4 @@
-package com.mshams.cs.algs4;
+package com.mshams.cs.algs4.applications;
 
 public class QuickFindUF implements UF {
     private final int[] id;

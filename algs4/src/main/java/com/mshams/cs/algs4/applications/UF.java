@@ -1,4 +1,4 @@
-package com.mshams.cs.algs4;
+package com.mshams.cs.algs4.applications;
 
 public interface UF {
     boolean connected(int p, int q);

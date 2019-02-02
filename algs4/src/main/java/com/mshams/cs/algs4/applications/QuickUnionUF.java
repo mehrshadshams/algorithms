@@ -1,17 +1,14 @@
-package com.mshams.cs.algs4;
+package com.mshams.cs.algs4.applications;
 
-public class WeightedQuickUnionUF implements UF {
+public class QuickUnionUF implements UF {
     private final int[] parent;
-    private final int[] sz;
     private int count;
 
-    public WeightedQuickUnionUF(int n) {
+    public QuickUnionUF(int n) {
         count = n;
         parent = new int[n];
-        sz = new int[n];
         for (int i = 0; i < n; i++) {
             parent[i] = i;
-            sz[i] = 1;
         }
     }
 
@@ -24,23 +21,16 @@ public class WeightedQuickUnionUF implements UF {
     public void union(int p, int q) {
         int rootP = find(p);
         int rootQ = find(q);
-        if (rootP == rootQ) return;
-        if (sz[rootP] < sz[rootQ]) {
+        if (rootP != rootQ) {
             parent[rootP] = rootQ;
-            sz[rootQ] += sz[rootP];
-        } else {
-            parent[rootQ] = rootP;
-            sz[rootP] += sz[rootQ];
+            count--;
         }
-        count--;
     }
 
     @Override
     public int find(int p) {
         validate(p);
         while (p != parent[p]) {
-            // Path compression
-            //parent[p] = parent[parent[p]];
             p = parent[p];
         }
         return p;

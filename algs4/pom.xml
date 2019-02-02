@@ -60,7 +60,8 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <!--<configLocation>/lcs-checks.xml</configLocation>-->
+                    <encoding>UTF-8</encoding>
+                    <configLocation>google_checks.xml</configLocation>
                     <suppressionsLocation>checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
                     <failsOnError>true</failsOnError>
                     <consoleOutput>true</consoleOutput>
