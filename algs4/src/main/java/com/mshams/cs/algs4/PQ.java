@@ -10,7 +10,7 @@ public class PQ<Key extends Comparable<Key>> {
     private boolean minPQ;
 
     private PQ(int initialCapacity, boolean minPQ) {
-        this.a = new Comparable[initialCapacity];
+        this.a = new Comparable[initialCapacity + 1];
         this.minPQ = minPQ;
     }
 
