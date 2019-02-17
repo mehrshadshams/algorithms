@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.mshams.cs.algs4.collections.StdArray;
+import com.mshams.cs.algs4.sorting.Counting;
 import com.mshams.cs.algs4.sorting.HoareQuick;
 import com.mshams.cs.algs4.sorting.Insertion;
 import com.mshams.cs.algs4.sorting.Merge;
@@ -93,6 +94,15 @@ class SortTests {
             array[i] = chars[i];
 
         Quick3way.sort(array);
+
+        Assertions.assertTrue(StdArray.isSorted(array));
+    }
+
+    @Test
+    void test_count_sort() {
+        int[] array = new int[]{2, 5, 3, 0, 2, 3, 0, 3};
+
+        Counting.sort(array, 6);
 
         Assertions.assertTrue(StdArray.isSorted(array));
     }
