@@ -5,6 +5,16 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.mshams.cs.algs4.collections.StdArray;
+import com.mshams.cs.algs4.sorting.HoareQuick;
+import com.mshams.cs.algs4.sorting.Insertion;
+import com.mshams.cs.algs4.sorting.Merge;
+import com.mshams.cs.algs4.sorting.MergeBU;
+import com.mshams.cs.algs4.sorting.Quick;
+import com.mshams.cs.algs4.sorting.Quick3way;
+import com.mshams.cs.algs4.sorting.Selection;
+import com.mshams.cs.algs4.utils.StdRandom;
+
 class SortTests {
 
     @Test
@@ -57,10 +67,20 @@ class SortTests {
 
     @Test
     void test_quick_sort() {
-        int[] array = StdArray.range(1, 1000);
+        int[] array = StdArray.range(1, 10);
         StdRandom.shuffle(array);
 
         Quick.sort(array);
+
+        Assertions.assertTrue(StdArray.isSorted(array));
+    }
+
+    @Test
+    void test_quick_sort_hoare() {
+        int[] array = StdArray.range(1, 1000);
+        StdRandom.shuffle(array);
+
+        HoareQuick.sort(array);
 
         Assertions.assertTrue(StdArray.isSorted(array));
     }

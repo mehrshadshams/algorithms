@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.mshams.cs.algs4.collections.StdArray;
+import com.mshams.cs.algs4.searching.QuickSelect;
+import com.mshams.cs.algs4.utils.StdRandom;
+
 class QuickSelectTests {
 
     Integer[] numbers;
