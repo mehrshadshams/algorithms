@@ -7,20 +7,19 @@
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.Stopwatch;
-import edu.princeton.cs.algs4.TrieSET;
 
 import java.util.Set;
 import java.util.TreeSet;
 
 public class BoggleSolver {
 
-    private final TrieSET trie;
+    private final BoggleTrieSET trie;
     private boolean[][] visited;
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
     public BoggleSolver(String[] dictionary) {
-        trie = new TrieSET();
+        trie = new BoggleTrieSET();
         for (String word : dictionary) {
             trie.add(word);
         }
@@ -32,18 +31,19 @@ public class BoggleSolver {
         visited = new boolean[board.rows()][board.cols()];
         for (int row = 0; row < board.rows(); row++) {
             for (int col = 0; col < board.cols(); col++) {
-                dfs(board, "", words, trie, row, col);
+                dfs(board, "", words, trie.getRoot(), row, col);
             }
         }
         return words;
     }
 
-    private void dfs(BoggleBoard board, String prefix, Set<String> words, TrieSET prefixTrie,
+    private void dfs(BoggleBoard board, String prefix, Set<String> words, BoggleTrieSET.Node parent,
                      int row, int col) {
         if (row < 0 || row >= board.rows() || col < 0 || col >= board.cols()) return;
         if (visited[row][col]) return;
 
-        String ch = String.valueOf(board.getLetter(row, col));
+        final char letter = board.getLetter(row, col);
+        String ch = String.valueOf(letter);
         if ("Q".equalsIgnoreCase(ch)) {
             ch = "QU";
         }
@@ -51,24 +51,27 @@ public class BoggleSolver {
         prefix = prefix + ch;
 
         if (prefix.length() >= 3) {
-            if (trie.contains(prefix)) {
-                words.add(prefix);
-            }
-            final Iterable<String> prefixes = prefixTrie.keysWithPrefix(prefix);
-            if (!prefixes.iterator().hasNext()) {
+            final BoggleTrieSET.Node node = trie.get(prefix);
+            if (node == null) {
                 return;
             }
+
+            if (node.hasString()) {
+                words.add(prefix);
+            }
+
+            parent = node;
         }
 
         visited[row][col] = true;
-        dfs(board, prefix, words, prefixTrie, row + 1, col);
-        dfs(board, prefix, words, prefixTrie, row - 1, col);
-        dfs(board, prefix, words, prefixTrie, row, col + 1);
-        dfs(board, prefix, words, prefixTrie, row, col - 1);
-        dfs(board, prefix, words, prefixTrie, row - 1, col - 1);
-        dfs(board, prefix, words, prefixTrie, row - 1, col + 1);
-        dfs(board, prefix, words, prefixTrie, row + 1, col - 1);
-        dfs(board, prefix, words, prefixTrie, row + 1, col + 1);
+        dfs(board, prefix, words, parent, row + 1, col);
+        dfs(board, prefix, words, parent, row - 1, col);
+        dfs(board, prefix, words, parent, row, col + 1);
+        dfs(board, prefix, words, parent, row, col - 1);
+        dfs(board, prefix, words, parent, row - 1, col - 1);
+        dfs(board, prefix, words, parent, row - 1, col + 1);
+        dfs(board, prefix, words, parent, row + 1, col - 1);
+        dfs(board, prefix, words, parent, row + 1, col + 1);
         visited[row][col] = false;
     }
 
