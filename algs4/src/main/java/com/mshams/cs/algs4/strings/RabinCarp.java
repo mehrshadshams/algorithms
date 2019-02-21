@@ -45,6 +45,7 @@ public class RabinCarp {
                         equals = false;
                     }
                 }
+
                 if (equals) {
                     return i;
                 }

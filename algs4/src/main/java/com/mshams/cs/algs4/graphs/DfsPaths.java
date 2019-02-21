@@ -23,6 +23,19 @@ public class DfsPaths implements Paths {
         }
     }
 
+    public DfsPaths(IGraph graph, Iterable<Integer> sources) {
+        marked = new boolean[graph.V()];
+        edgeTo = new int[graph.V()];
+        for (Integer s : sources) {
+            if (!marked[s])
+                dfs(graph, s);
+        }
+    }
+
+    public boolean marked(int v) {
+        return marked[v];
+    }
+
     @Override
     public boolean hasPathTo(int v) {
         return marked[v];
