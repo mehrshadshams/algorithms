@@ -6,7 +6,7 @@
 
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
-import edu.princeton.cs.algs4.Quick;
+import edu.princeton.cs.algs4.LinkedQueue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +24,7 @@ public class BurrowsWheeler {
         for (int i = 0; i < circularSuffixArray.length(); i++) {
             int idx = circularSuffixArray.index(i);
             if (idx == 0) {
+                if (index != -1) throw new RuntimeException("");
                 index = i;
             }
             if (idx > 0) {
@@ -45,44 +46,53 @@ public class BurrowsWheeler {
     public static void inverseTransform() {
         int first = BinaryStdIn.readInt();
 
-        int[] counts = new int[R];
-        for (int i = 0; i < R; i++)
-            counts[i] = -1;
+        LinkedQueue[] counts = new LinkedQueue[R];
 
-        List<Character> t = new LinkedList<>();
+        List<Character> lastChars = new LinkedList<>();
         int i = 0;
         while (!BinaryStdIn.isEmpty()) {
             char c = BinaryStdIn.readChar();
-            if (counts[c] == -1)
-                counts[c] = i++;
-            t.add(c);
-        }
-
-        Character[] a = t.toArray(new Character[0]);
-        Quick.sort(a);
-
-        int[] next = new int[a.length];
-        next[0] = first;
-
-        for (i = 1; i < next.length; i++) {
-            char c = a[i];
-            int j = counts[c];
-            for (; j < next.length; j++) {
-                if (t.get(j) == c) {
-                    next[i] = j;
-                    counts[c] = j + 1;
-                    break;
-                }
+            lastChars.add(c);
+            if (counts[c] == null) {
+                counts[c] = new LinkedQueue<Integer>();
             }
+            counts[c].enqueue(i);
+            i++;
         }
 
-        int n = next[0];
+        Character[] firstChars = lastChars.toArray(new Character[0]);
+
+        countingSort(firstChars);
+
+        int[] next = new int[firstChars.length];
+
+        for (i = 0; i < next.length; i++) {
+            char ch = firstChars[i];
+            int j = (Integer) counts[ch].dequeue();
+            next[i] = j;
+        }
+
+        int n = first;
         for (int j = 0; j < next.length; j++) {
-            BinaryStdOut.write(a[n]);
+            BinaryStdOut.write(firstChars[n]);
             n = next[n];
         }
 
         BinaryStdOut.close();
+    }
+
+    private static void countingSort(Character[] array) {
+        int n = array.length;
+        Character[] aux = new Character[n];
+        int[] count = new int[R + 1];
+        for (int i = 0; i < n; i++)
+            count[array[i] + 1]++;
+        for (int r = 0; r < R; r++)
+            count[r + 1] += count[r];
+        for (int i = 0; i < n; i++)
+            aux[count[array[i]]++] = array[i];
+        for (int i = 0; i < n; i++)
+            array[i] = aux[i];
     }
 
     // if args[0] is '-', apply Burrows-Wheeler transform

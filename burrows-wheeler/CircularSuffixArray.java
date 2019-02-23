@@ -4,8 +4,9 @@
  *  Description:
  **************************************************************************** */
 
-import edu.princeton.cs.algs4.Quick;
 import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Arrays;
 
 public class CircularSuffixArray {
     // circular suffix array of s
@@ -21,7 +22,7 @@ public class CircularSuffixArray {
             suffixes[i] = new SortedSuffix(i);
         }
 
-        Quick.sort(suffixes);
+        Arrays.sort(suffixes);
     }
 
     // length of s
@@ -31,10 +32,11 @@ public class CircularSuffixArray {
 
     // returns index of ith sorted suffix
     public int index(int i) {
+        if (i < 0) throw new IllegalArgumentException();
         return suffixes[i].suffixIndex;
     }
 
-    private String suffix(String s, int i) {
+    private static String suffix(String s, int i) {
         return s.substring(i) + s.substring(0, i);
     }
 
@@ -58,23 +60,42 @@ public class CircularSuffixArray {
 
             char c1 = s.charAt(i);
             char c2 = s.charAt(j);
-            while (i < s.length() && j < s.length() && c1 == c2) {
+            i++;
+            j++;
+            while (c1 == c2 && i != suffixIndex && j != other.suffixIndex) {
+                if (i >= s.length()) {
+                    i = 0;
+                }
+                if (j >= s.length()) {
+                    j = 0;
+                }
                 c1 = s.charAt(i);
                 c2 = s.charAt(j);
                 i++;
                 j++;
             }
 
-            return Integer.compare(c1, c2);
+            return Character.compare(c1, c2);
         }
     }
 
     // unit testing (required)
     public static void main(String[] args) {
-        final String s = "ABRACADABRA!";
+        final String s = "BAAAABBAAB";
         CircularSuffixArray circularSuffixArray = new CircularSuffixArray(s);
-        for (int i = 0; i < 12; i++) {
-            StdOut.println(circularSuffixArray.index(i));
-        }
+
+        // String[] suffixes = new String[s.length()];
+        // for (int i = 0; i < s.length(); i++) {
+        //     suffixes[i] = circularSuffixArray.suffixes[i].toString();
+        // }
+        // String[] suffixes2 = new String[s.length()];
+        // for (int i = 0; i < s.length(); i++) {
+        //     suffixes2[i] = CircularSuffixArray.suffix(s, i);
+        // }
+        //
+        // Arrays.sort(suffixes2);
+        // boolean eq = Objects.deepEquals(suffixes, suffixes2);
+
+        StdOut.println(circularSuffixArray.index(5));
     }
 }
