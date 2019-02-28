@@ -1,4 +1,4 @@
-package com.mshams.cs.algs4.collections;
+package com.mshams.cs.algs4.utils;
 
 public class StdArray {
     public static int[] range(int start, int end) {

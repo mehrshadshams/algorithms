@@ -1,6 +1,6 @@
 package com.mshams.cs.algs4.collections;
 
-import static com.mshams.cs.algs4.collections.StdArray.exch;
+import static com.mshams.cs.algs4.utils.StdArray.exch;
 
 import java.util.NoSuchElementException;
 

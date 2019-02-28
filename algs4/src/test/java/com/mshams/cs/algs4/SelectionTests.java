@@ -2,15 +2,17 @@ package com.mshams.cs.algs4;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.mshams.cs.algs4.collections.StdArray;
-import com.mshams.cs.algs4.searching.QuickSelect;
+import com.mshams.cs.algs4.selection.MedianOfMedians;
+import com.mshams.cs.algs4.utils.StdArray;
+import com.mshams.cs.algs4.selection.QuickSelect;
 import com.mshams.cs.algs4.utils.StdRandom;
 
-class QuickSelectTests {
+class SelectionTests {
 
     Integer[] numbers;
 
@@ -47,5 +49,13 @@ class QuickSelectTests {
         int median = (int) QuickSelect.select(numbers, numbers.length / 2);
 
         Assertions.assertEquals(5, median);
+    }
+
+    @Test
+    void test_median_of_median_returns_kth() {
+        int[] array = {12, 3, 5, 7, 4, 19, 26};
+        int kth = MedianOfMedians.kthSmallest(array, 3);
+
+        Assertions.assertEquals(5, kth);
     }
 }

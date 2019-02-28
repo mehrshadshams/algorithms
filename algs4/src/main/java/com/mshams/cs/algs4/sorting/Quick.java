@@ -4,8 +4,11 @@ import java.util.Random;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.mshams.cs.algs4.utils.StdRandom;
+
 public class Quick {
     public static int[] sort(int[] array) {
+        StdRandom.shuffle(array);
         sort(array, 0, array.length - 1, false);
         return array;
     }

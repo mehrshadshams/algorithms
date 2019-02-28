@@ -1,6 +1,6 @@
 package com.mshams.cs.algs4.strings;
 
-import static com.mshams.cs.algs4.collections.StdArray.exch;
+import static com.mshams.cs.algs4.utils.StdArray.exch;
 
 import com.mshams.cs.algs4.utils.StdRandom;
 

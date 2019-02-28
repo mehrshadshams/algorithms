@@ -142,6 +142,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 
     @Override
     public Value get(Key key) {
+        // Iterative find
         Node node = root;
         while (node != null) {
             int cmp = key.compareTo(node.key);
@@ -152,6 +153,8 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
             else
                 node = node.right;
         }
+
+        // TODO: Recursive find
 
         return null;
     }
@@ -193,9 +196,9 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
         if (node == null) return null;
         int cmp = key.compareTo(node.key);
         if (cmp < 0) {
-            node.left = delete(node, key);
+            node.left = delete(node.left, key);
         } else if (cmp > 0) {
-            node.right = delete(node, key);
+            node.right = delete(node.right, key);
         } else {
             if (node.left == null) return node.right;
             if (node.right == null) return node.left;

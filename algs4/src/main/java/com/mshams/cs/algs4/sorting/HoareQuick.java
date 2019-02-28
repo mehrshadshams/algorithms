@@ -1,6 +1,6 @@
 package com.mshams.cs.algs4.sorting;
 
-import com.mshams.cs.algs4.collections.StdArray;
+import com.mshams.cs.algs4.utils.StdArray;
 import com.mshams.cs.algs4.utils.StdRandom;
 
 public class HoareQuick {

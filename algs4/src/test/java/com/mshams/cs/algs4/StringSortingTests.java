@@ -5,7 +5,7 @@ import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.mshams.cs.algs4.collections.StdArray;
+import com.mshams.cs.algs4.utils.StdArray;
 import com.mshams.cs.algs4.strings.LSD;
 import com.mshams.cs.algs4.strings.MSD;
 import com.mshams.cs.algs4.strings.Quick3string;

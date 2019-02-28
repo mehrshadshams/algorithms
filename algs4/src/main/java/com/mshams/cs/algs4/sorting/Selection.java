@@ -1,7 +1,7 @@
 package com.mshams.cs.algs4.sorting;
 
-import static com.mshams.cs.algs4.collections.StdArray.exch;
-import static com.mshams.cs.algs4.collections.StdArray.less;
+import static com.mshams.cs.algs4.utils.StdArray.exch;
+import static com.mshams.cs.algs4.utils.StdArray.less;
 
 public class Selection {
     public static void sort(Comparable[] array) {

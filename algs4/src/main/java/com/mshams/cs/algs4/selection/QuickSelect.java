@@ -1,7 +1,7 @@
-package com.mshams.cs.algs4.searching;
+package com.mshams.cs.algs4.selection;
 
-import static com.mshams.cs.algs4.collections.StdArray.exch;
-import static com.mshams.cs.algs4.collections.StdArray.less;
+import static com.mshams.cs.algs4.utils.StdArray.exch;
+import static com.mshams.cs.algs4.utils.StdArray.less;
 
 import com.mshams.cs.algs4.utils.StdRandom;
 
@@ -32,7 +32,7 @@ public class QuickSelect {
             }
 
             while (less(a[lo], a[--j])) {
-                if (i == lo) {
+                if (j == lo) {
                     break;
                 }
             }

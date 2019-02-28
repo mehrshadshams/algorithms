@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.mshams.cs.algs4.collections.StdArray;
+import com.mshams.cs.algs4.utils.StdArray;
 import com.mshams.cs.algs4.sorting.Counting;
 import com.mshams.cs.algs4.sorting.HoareQuick;
 import com.mshams.cs.algs4.sorting.Insertion;
