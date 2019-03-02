@@ -47,11 +47,6 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
         return min(root).key;
     }
 
-    private Node min(Node node) {
-        if (node.left == null) return node;
-        return min(node.left);
-    }
-
     @Override
     public Key max() {
         if (root == null)
@@ -66,30 +61,11 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
         return max(root).key;
     }
 
-    private Node max(Node node) {
-        if (node.right == null) return node;
-        return max(node.right);
-    }
-
     @Override
     public Key ceiling(Key key) {
         Node node = ceiling(root, key);
         if (node == null) return null;
         return node.key;
-    }
-
-    private Node ceiling(Node x, Key key) {
-        if (x == null)
-            return null;
-        int cmp = key.compareTo(x.key);
-        if (cmp == 0)
-            return x;
-        if (cmp > 0)
-            return ceiling(x.right, key);
-        Node t = ceiling(x.left, key);
-        if (t != null)
-            return t;
-        return x;
     }
 
     @Override
@@ -98,20 +74,6 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
         if (node == null)
             return null;
         return node.key;
-    }
-
-    private Node floor(Node x, Key key) {
-        if (x == null)
-            return null;
-        int cmp = key.compareTo(x.key);
-        if (cmp == 0)
-            return x;
-        if (cmp < 0)
-            return floor(x.left, key);
-        Node t = floor(x.right, key);
-        if (t != null)
-            return t;
-        return x;
     }
 
     @Override
@@ -137,7 +99,9 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 
     @Override
     public int size(Key lo, Key hi) {
-        return 0;
+        if (lo.compareTo(hi) > 0) return 0;
+        if (contains(hi)) return rank(hi) - rank(lo) + 1;
+        return rank(hi) - rank(lo);
     }
 
     @Override
@@ -159,31 +123,38 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
         return null;
     }
 
+    public int height() {
+        return height(root);
+    }
+
+    public Iterable<Key> levelOrder() {
+        Queue<Key> keys = new LinkedList<>();
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node n = queue.poll();
+            keys.add(n.key);
+            if (n.left != null) queue.add(n.left);
+            if (n.right != null) queue.add(n.right);
+        }
+        return keys;
+    }
+
     public Iterable<Key> keys() {
         Queue<Key> queue = new LinkedList<>();
         inorder(root, queue);
         return queue;
     }
 
+    public Iterable<Key> keys(Key min, Key max) {
+        Queue<Key> queue = new LinkedList<>();
+        keys(queue, root, min, max);
+        return queue;
+    }
+
     @Override
     public Iterator<Key> iterator() {
         return keys().iterator();
-    }
-
-    private Node put(Node node, Key key, Value value) {
-        if (node == null) {
-            return new Node(key, value);
-        }
-        int cmp = key.compareTo(node.key);
-        if (cmp < 0)
-            node.left = put(node.left, key, value);
-        else if (cmp > 0)
-            node.right = put(node.right, key, value);
-        else
-            node.value = value;
-
-        node.size = 1 + size(node.left) + size(node.right);
-        return node;
     }
 
     /**
@@ -259,6 +230,111 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
         inorder(node.left, keys);
         keys.add(node.key);
         inorder(node.right, keys);
+    }
+
+    private Node max(Node node) {
+        if (node.right == null) return node;
+        return max(node.right);
+    }
+
+    private Node min(Node node) {
+        if (node.left == null) return node;
+        return min(node.left);
+    }
+
+    private Node ceiling(Node node, Key key) {
+        if (node == null) return null;
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0) return node;
+        if (cmp < 0) {
+            Node t = ceiling(node.left, key);
+            if (t != null) return t;
+            return node;
+        }
+        return ceiling(node.right, key);
+    }
+
+    private Node floor(Node x, Key key) {
+        if (x == null)
+            return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp == 0)
+            return x;
+        if (cmp < 0)
+            return floor(x.left, key);
+        Node t = floor(x.right, key);
+        if (t != null)
+            return t;
+        return x;
+    }
+
+    private int height(Node node) {
+        if (node == null) return -1;
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    private void keys(Queue<Key> queue, Node node, Key min, Key max) {
+        if (node == null) return;
+        int minCmp = min.compareTo(node.key);
+        int maxCmp = max.compareTo(node.key);
+        if (minCmp < 0) {
+            keys(queue, node.left, min, max);
+        }
+        if (minCmp <=0 && maxCmp >= 0) {
+            queue.add(node.key);
+        }
+        if (maxCmp > 0) {
+            keys(queue, node.right, min, max);
+        }
+    }
+
+    private Node put(Node node, Key key, Value value) {
+        if (node == null) {
+            return new Node(key, value);
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0)
+            node.left = put(node.left, key, value);
+        else if (cmp > 0)
+            node.right = put(node.right, key, value);
+        else
+            node.value = value;
+
+        node.size = 1 + size(node.left) + size(node.right);
+        return node;
+    }
+
+    private void check() {
+        if (!isBST()) throw new IllegalStateException();
+        if (!isSizeConsistent()) throw new IllegalStateException();
+        //if (!isRankConsistent()) throw new IllegalStateException();
+    }
+
+    private boolean isBST() {
+        return isBST(root, null, null);
+    }
+    private boolean isBST(Node node, Key min, Key max) {
+        if (node == null) return true;
+        boolean valid = true;
+        if (min != null) {
+            valid &= node.key.compareTo(min) > 0;
+        }
+        if (valid && max != null) {
+            valid &= node.key.compareTo(max) <= 0;
+        }
+        if (!valid) return false;
+        return isBST(node.left, min, node.key) &&
+                isBST(node.right, node.key, max);
+    }
+
+    private boolean isSizeConsistent() {
+        return isSizeConsistent(root);
+    }
+
+    private boolean isSizeConsistent(Node node) {
+        if (node == null) return true;
+        return (node.size == 1 + size(node.left) + size(node.right)) &&
+                isSizeConsistent(node.left) && isSizeConsistent(node.left);
     }
 
     private class Node {
