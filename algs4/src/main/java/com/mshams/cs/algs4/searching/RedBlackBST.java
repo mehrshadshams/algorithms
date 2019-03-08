@@ -1,5 +1,7 @@
 package com.mshams.cs.algs4.searching;
 
+import java.util.NoSuchElementException;
+
 import org.apache.commons.lang3.NotImplementedException;
 
 public class RedBlackBST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
@@ -31,7 +33,17 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements ST<Key, 
 
     @Override
     public void delete(Key key) {
-        throw new NotImplementedException("Not Implemented");
+        if (key == null)
+            throw new IllegalArgumentException();
+        if (!contains(key))
+            return;
+
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = delete(root, key);
+        if (!isEmpty())
+            root.color = BLACK;
     }
 
     @Override
@@ -51,12 +63,16 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements ST<Key, 
 
     @Override
     public Key min() {
-        throw new NotImplementedException("Not Implemented");
+        if (isEmpty())
+            throw new NoSuchElementException("calls min() with empty symbol table");
+        return min(root).key;
     }
 
     @Override
     public Key max() {
-        throw new NotImplementedException("Not Implemented");
+        if (isEmpty())
+            throw new NoSuchElementException("calls min() with empty symbol table");
+        return max(root).key;
     }
 
     @Override
@@ -81,17 +97,35 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements ST<Key, 
 
     @Override
     public void deleteMin() {
-        throw new NotImplementedException("Not Implemented");
+        if (isEmpty())
+            throw new NoSuchElementException();
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = deleteMin(root);
+        if (!isEmpty())
+            root.color = BLACK;
     }
 
     @Override
     public void deleteMax() {
-        throw new NotImplementedException("Not Implemented");
+        if (isEmpty())
+            throw new NoSuchElementException();
+
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = deleteMax(root);
+        if (!isEmpty())
+            root.color = BLACK;
     }
 
     @Override
     public int size(Key lo, Key hi) {
-        throw new NotImplementedException("Not Implemented");
+        if (contains(hi))
+            return rank(hi) - rank(lo) + 1;
+        else
+            return rank(hi) - rank(lo);
     }
 
     private Node put(Node x, Key key, Value value) {
@@ -122,6 +156,43 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements ST<Key, 
         if (node == null)
             return 0;
         return 1 + size(node.left) + size(node.right);
+    }
+
+    private Node min(Node x) {
+        if (x.left == null)
+            return x;
+        return min(x.left);
+    }
+
+    private Node max(Node x) {
+        if (x.right == null)
+            return x;
+        return max(x.right);
+    }
+
+    private Node delete(Node h, Key key) {
+        if (key.compareTo(h.key) < 0) {
+            if (!isRed(h.left) && !isRed(h.left.left))
+                h = moveRedLeft(h);
+            h.left = delete(h.left, key);
+        } else {
+            if (isRed(h.left))
+                h = rotateRight(h);
+            if (key.compareTo(h.key) == 0 && (h.right == null))
+                return null;
+            if (!isRed(h.right) && !isRed(h.right.left))
+                h = moveRedRight(h);
+            if (key.compareTo(h.key) == 0) {
+                Node x = min(h.right);
+                h.key = x.key;
+                h.value = x.value;
+                // h.val = get(h.right, min(h.right).key);
+                // h.key = min(h.right).key;
+                h.right = deleteMin(h.right);
+            } else
+                h.right = delete(h.right, key);
+        }
+        return balance(h);
     }
 
     private void flipColors(Node node) {
@@ -155,8 +226,63 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements ST<Key, 
         return node != null ? node.color == RED : BLACK;
     }
 
+    private Node deleteMin(Node h) {
+        if (h.left == null)
+            return null;
+        if (!isRed(h.left) && !isRed(h.left.left))
+            h = moveRedLeft(h);
+        h.left = deleteMin(h.left);
+        return balance(h);
+    }
+
+    private Node moveRedLeft(Node h) {
+        flipColors(h);
+        if (isRed(h.right.left)) {
+            h.right = rotateRight(h.right);
+            h = rotateLeft(h);
+            flipColors(h);
+        }
+        return h;
+    }
+
+    private Node deleteMax(Node h) {
+        if (isRed(h.left))
+            h = rotateRight(h);
+
+        if (h.right == null)
+            return null;
+
+        if (!isRed(h.right) && !isRed(h.right.left))
+            h = moveRedRight(h);
+
+        h.right = deleteMax(h.right);
+
+        return balance(h);
+    }
+
+    private Node moveRedRight(Node h) {
+        flipColors(h);
+        if (isRed(h.left.left)) {
+            h = rotateRight(h);
+            flipColors(h);
+        }
+        return h;
+    }
+
+    private Node balance(Node h) {
+        if (isRed(h.right))
+            h = rotateLeft(h);
+        if (isRed(h.left) && isRed(h.left.left))
+            h = rotateRight(h);
+        if (isRed(h.left) && isRed(h.right))
+            flipColors(h);
+
+        h.size = 1 + size(h.left) + size(h.right);
+        return h;
+    }
+
     private class Node {
-        private final Key key;
+        private Key key;
         private Value value;
         private Node left, right;
         private boolean color;

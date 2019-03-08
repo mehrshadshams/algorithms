@@ -10,12 +10,12 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 
     @Override
     public void put(Key key, Value value) {
-        root = put(root, key, value);
+        root = put(getRoot(), key, value);
     }
 
     @Override
     public void delete(Key key) {
-        root = delete(root, key);
+        root = delete(getRoot(), key);
     }
 
     @Override
@@ -25,17 +25,17 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 
     @Override
     public int size() {
-        return root != null ? root.size : 0;
+        return getRoot() != null ? getRoot().size : 0;
     }
 
     @Override
     public boolean isEmpty() {
-        return root == null;
+        return getRoot() == null;
     }
 
     @Override
     public Key min() {
-        if (root == null)
+        if (getRoot() == null)
             throw new NoSuchElementException();
 //        Node node = root;
 //        Key min = null;
@@ -44,12 +44,12 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 //            node = node.left;
 //        }
 //        return min;
-        return min(root).key;
+        return min(getRoot()).key;
     }
 
     @Override
     public Key max() {
-        if (root == null)
+        if (getRoot() == null)
             throw new NoSuchElementException();
 //        Node node = root;
 //        Key max = null;
@@ -58,19 +58,19 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 //            node = node.right;
 //        }
 //        return max;
-        return max(root).key;
+        return max(getRoot()).key;
     }
 
     @Override
     public Key ceiling(Key key) {
-        Node node = ceiling(root, key);
+        Node node = ceiling(getRoot(), key);
         if (node == null) return null;
         return node.key;
     }
 
     @Override
     public Key floor(Key key) {
-        Node node = floor(root, key);
+        Node node = floor(getRoot(), key);
         if (node == null)
             return null;
         return node.key;
@@ -78,23 +78,23 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 
     @Override
     public int rank(Key key) {
-        return rank(key, root);
+        return rank(key, getRoot());
     }
 
     @Override
     public Key select(int k) {
-        Node node = select(root, k);
+        Node node = select(getRoot(), k);
         return node.key;
     }
 
     @Override
     public void deleteMin() {
-        root = deleteMin(root);
+        root = deleteMin(getRoot());
     }
 
     @Override
     public void deleteMax() {
-        root = deleteMax(root);
+        root = deleteMax(getRoot());
     }
 
     @Override
@@ -107,7 +107,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
     @Override
     public Value get(Key key) {
         // Iterative find
-        Node node = root;
+        Node node = getRoot();
         while (node != null) {
             int cmp = key.compareTo(node.key);
             if (cmp == 0)
@@ -124,13 +124,13 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
     }
 
     public int height() {
-        return height(root);
+        return height(getRoot());
     }
 
     public Iterable<Key> levelOrder() {
         Queue<Key> keys = new LinkedList<>();
         Queue<Node> queue = new LinkedList<>();
-        queue.add(root);
+        queue.add(getRoot());
         while (!queue.isEmpty()) {
             Node n = queue.poll();
             keys.add(n.key);
@@ -142,19 +142,23 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 
     public Iterable<Key> keys() {
         Queue<Key> queue = new LinkedList<>();
-        inorder(root, queue);
+        inorder(getRoot(), queue);
         return queue;
     }
 
     public Iterable<Key> keys(Key min, Key max) {
         Queue<Key> queue = new LinkedList<>();
-        keys(queue, root, min, max);
+        keys(queue, getRoot(), min, max);
         return queue;
     }
 
     @Override
     public Iterator<Key> iterator() {
         return keys().iterator();
+    }
+
+    protected Node getRoot() {
+        return root;
     }
 
     /**
@@ -196,14 +200,22 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
     }
 
     private Node deleteMin(Node node) {
-        if (node.left == null) return node.right;
+        if (node.left == null) {
+            Node k = select(getRoot(), 1);
+            k.pred = null;
+            return node.right;
+        }
         node.left = deleteMin(node.left);
         node.size = size(node.left) + size(node.right) + 1;
         return node;
     }
 
     private Node deleteMax(Node node) {
-        if (node.right == null) return node.left;
+        if (node.right == null) {
+            Node k = select(getRoot(), size() - 1);
+            k.succ = null;
+            return node.left;
+        }
         node.right = deleteMax(node.right);
         node.size = 1 + size(node.left) + size(node.right);
         return node;
@@ -290,8 +302,12 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
 
     private Node put(Node node, Key key, Value value) {
         if (node == null) {
-            return new Node(key, value);
+            Node n = new Node(key, value);
+            n.pred = floor(getRoot(), key);
+            n.succ = ceiling(getRoot(), key);
+            return n;
         }
+
         int cmp = key.compareTo(node.key);
         if (cmp < 0)
             node.left = put(node.left, key, value);
@@ -311,7 +327,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
     }
 
     private boolean isBST() {
-        return isBST(root, null, null);
+        return isBST(getRoot(), null, null);
     }
     private boolean isBST(Node node, Key min, Key max) {
         if (node == null) return true;
@@ -328,7 +344,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
     }
 
     private boolean isSizeConsistent() {
-        return isSizeConsistent(root);
+        return isSizeConsistent(getRoot());
     }
 
     private boolean isSizeConsistent(Node node) {
@@ -337,13 +353,16 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value>, 
                 isSizeConsistent(node.left) && isSizeConsistent(node.left);
     }
 
-    private class Node {
+    class Node {
         private final Key key;
         private Value value;
         private int size;
 
         private Node left;
         private Node right;
+
+        private Node succ;
+        private Node pred;
 
         Node(Key key, Value value) {
             this.key = key;
