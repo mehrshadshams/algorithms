@@ -7,34 +7,48 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
     @Override
     public Value get(Key key) {
         Node n = get(root, key);
-        if (n == null) return null;
+        if (n == null)
+            return null;
         return n.value;
     }
 
     @Override
     public void put(Key key, Value val) {
         root = put(root, key, val);
-    }    
+    }
 
     @Override
     public void delete(Key key) {
+        if (key == null)
+            throw new IllegalArgumentException();
+        if (!contains(key))
+            return;
         root = delete(root, key);
     }
 
+    public int height() {
+        return height(root);
+    }
+
     private Node delete(Node n, Key key) {
-        if (n == null) return null;
         int cmp = key.compareTo(n.key);
         if (cmp < 0) {
             n.left = delete(n.left, key);
         } else if (cmp > 0) {
             n.right = delete(n.right, key);
         } else {
-            if (n.left == null) return n.right;
-            if (n.right == null) return n.left;
+            if (n.left == null)
+                return n.right;
+            if (n.right == null)
+                return n.left;
 
+            Node t = n;
+            n = min(t.right);
+            n.right = deleteMin(t.right);
+            n.left = t.left;
         }
 
-        return n;
+        return balance(updateNode(n));
     }
 
     @Override
@@ -54,12 +68,14 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
 
     @Override
     public Key min() {
-        return null;
+        Node n = min(root);
+        return n.key;
     }
 
     @Override
     public Key max() {
-        return null;
+        Node n = max(root);
+        return n.key;
     }
 
     @Override
@@ -84,12 +100,48 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
 
     @Override
     public void deleteMin() {
+        root = deleteMin(root);
+    }
 
+    private Node deleteMin(Node n) {
+        if (n.left == null) {
+            return n.right;
+        }
+        n.left = deleteMin(n);
+        return balance(updateNode(n));
+    }
+
+    private Node updateNode(Node n) {
+        n.size = 1 + size(n.left) + size(n.right);
+        n.height = 1 + Math.max(height(n.left), height(n.right));
+
+        return n;
     }
 
     @Override
     public void deleteMax() {
+        root = deleteMax(root);
+    }
 
+    private Node deleteMax(Node n) {
+        if (n.right == null) {
+            return n.left;
+        }
+        n.right = deleteMax(n);
+
+        return balance(updateNode(n));
+    }
+
+    private Node min(Node n) {
+        if (n.left == null)
+            return n;
+        return min(n.left);
+    }
+
+    private Node max(Node n) {
+        if (n.right == null)
+            return n;
+        return max(n.right);
     }
 
     @Override
@@ -101,7 +153,7 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
         if (n == null) {
             return new Node(key, value, 0, 1);
         }
-        
+
         int cmp = key.compareTo(n.key);
         if (cmp < 0) {
             n.left = put(n.left, key, value);
@@ -112,24 +164,22 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
             return n;
         }
 
-        n.size = 1 + size(n.left) + size(n.right);
-        n.height = 1 + Math.max(height(n.left), height(n.right));
+        return balance(updateNode(n));
+    }
 
+    private Node balance(Node n) {
         final int balance = balanceFactor(n);
-        
-        if (balance > 1 && balanceFactor(n.left) > 0) {
-            return rotateRight(n);
-        }
-        if (balance < -1 && balanceFactor(n.right) < 0) {
-            return rotateLeft(n);
-        }
-        if (balance > 1 && balanceFactor(n.left) < 0) {
-            n.left = rotateLeft(n.left);
-            return rotateRight(n);
-        }
-        if (balance < -1 && balanceFactor(n.right) > 0) {
-            n.right = rotateRight(n.right);
-            return rotateLeft(n);
+
+        if (balance < -1) {
+            if (balanceFactor(n.right) > 0) {
+                n.right = rotateRight(n.right);
+            }
+            n = rotateLeft(n);
+        } else if (balance > 1) {
+            if (balanceFactor(n.left) < 0) {
+                n.left = rotateLeft(n.left);
+            }
+            n = rotateRight(n);
         }
 
         return n;
@@ -138,7 +188,8 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
     private Node get(Node n, Key key) {
         while (n != null) {
             int cmp = key.compareTo(n.key);
-            if (cmp == 0) return n;
+            if (cmp == 0)
+                return n;
             if (cmp < 0) {
                 n = n.left;
             }
@@ -153,12 +204,11 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
         Node x = h.left;
         h.left = x.right;
         x.right = h;
-        
-        x.size = 1 + size(x.left) + size(x.right);
-        x.height = 1 + Math.max(height(x.left), height(x.right));
-
+        x.size = h.size;
         h.size = 1 + size(h.left) + size(h.right);
+
         h.height = 1 + Math.max(height(h.left), height(h.right));
+        x.height = 1 + Math.max(height(x.left), height(x.right));
 
         return x;
     }
@@ -167,29 +217,29 @@ public class AVLTree<Key extends Comparable<Key>, Value> implements ST<Key, Valu
         Node x = h.right;
         h.right = x.left;
         x.left = h;
-
-        x.size = 1 + size(x.left) + size(x.right);
-        x.height = 1 + Math.max(height(x.left), height(x.right));
-
+        x.size = h.size;
         h.size = 1 + size(h.left) + size(h.right);
+
         h.height = 1 + Math.max(height(h.left), height(h.right));
+        x.height = 1 + Math.max(height(x.left), height(x.right));
 
         return x;
     }
 
     private int balanceFactor(Node node) {
-        if (node == null) return 0;
         return height(node.left) - height(node.right);
     }
 
     private int size(Node n) {
-        if (n == null) return 0;
+        if (n == null)
+            return 0;
         return 1 + size(n.left) + size(n.right);
     }
 
     private int height(Node n) {
-        if (n == null) return -1;
-        return 1 + Math.max(height(n.left), height(n.right));
+        if (n == null)
+            return -1;
+        return n.height;
     }
 
     private class Node {

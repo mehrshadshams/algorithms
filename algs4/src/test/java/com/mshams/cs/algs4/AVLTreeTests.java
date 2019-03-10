@@ -14,7 +14,8 @@ public class AVLTreeTests {
         avl.put(2, 2);
         avl.put(3, 3);
 
-        Assertions.assertEquals(avl.size(), 3);        
+        Assertions.assertEquals(3, avl.size());
+        Assertions.assertEquals(1, avl.height());
     }
 
     @Test
@@ -25,7 +26,8 @@ public class AVLTreeTests {
         avl.put(2, 2);
         avl.put(1, 1);
     
-        Assertions.assertEquals(avl.size(), 3);
+        Assertions.assertEquals(3, avl.size());
+        Assertions.assertEquals(1, avl.height());
     }
 
     @Test
@@ -35,8 +37,9 @@ public class AVLTreeTests {
         avl.put(3, 3);        
         avl.put(1, 1);
         avl.put(2, 2);
-    
-        Assertions.assertEquals(avl.size(), 3);
+
+        Assertions.assertEquals(3, avl.size());
+        Assertions.assertEquals(1, avl.height());
     }
 
     @Test
@@ -45,8 +48,9 @@ public class AVLTreeTests {
 
         avl.put(1, 1);
         avl.put(3, 3);
-        avl.put(2, 2);        
-        
-        Assertions.assertEquals(avl.size(), 3);
+        avl.put(2, 2);
+
+        Assertions.assertEquals(3, avl.size());
+        Assertions.assertEquals(1, avl.height());
     }
 }

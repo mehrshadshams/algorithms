@@ -9,20 +9,15 @@ import com.mshams.cs.algs4.utils.StdRandom;
 public class Quick {
     public static int[] sort(int[] array) {
         StdRandom.shuffle(array);
-        sort(array, 0, array.length - 1, false);
+        sort(array, 0, array.length - 1);
         return array;
     }
 
-    public static int[] randomizedSort(int[] array) {
-        sort(array, 0, array.length - 1, true);
-        return array;
-    }
-
-    private static void sort(int[] array, int p, int r, boolean randomized) {
+    private static void sort(int[] array, int p, int r) {
         if (p < r) {
-            int q = randomized ? randomizedPartition(array, p, r) : partition(array, p, r);
-            sort(array, p, q - 1, randomized);
-            sort(array, q + 1, r, randomized);
+            int q = randomizedPartition(array, p, r);
+            sort(array, p, q - 1);
+            sort(array, q + 1, r);
         }
     }
 
