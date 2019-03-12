@@ -16,4 +16,8 @@ public class Interval {
     public int end() {
         return end;
     }
+
+    public boolean intersects(int lo, int hi) {
+        return (lo >= start && lo < end) || (hi <= end && hi >= start);
+    }
 }
