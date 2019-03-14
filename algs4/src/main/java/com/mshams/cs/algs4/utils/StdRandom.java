@@ -2,11 +2,30 @@ package com.mshams.cs.algs4.utils;
 
 import java.util.Random;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 public class StdRandom {
     private static Random random;
 
     static {
         random = new Random(System.currentTimeMillis());
+    }
+
+    public static int[] random(int min, int max, int size) {
+        int[] temp = new int[max-min];
+        for (int i=0; i<temp.length; i++) {
+            temp[i] = min + i;
+        }
+
+        int[] out = new int[size];
+        for (int i=0; i<size; i++) {
+            final int x = i + random.nextInt(temp.length - i);
+            ArrayUtils.swap(temp, i, x);
+
+            out[i] = temp[i];
+        }
+
+        return out;
     }
 
     public static void shuffle(int[] a) {
