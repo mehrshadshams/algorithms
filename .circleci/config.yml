@@ -17,9 +17,9 @@ jobs: # a collection of steps
           key: circleci-algorithms-{{ checksum "pom.xml" }}
       
       - run:
-        command: |
-          cd algs4
-          mvn dependency:go-offline # gets the project dependencies
+          command: |
+              cd algs4
+              mvn dependency:go-offline # gets the project dependencies
       
       - save_cache: # saves the project dependencies
           paths:
@@ -27,9 +27,9 @@ jobs: # a collection of steps
           key: circleci-algorithms-{{ checksum "pom.xml" }}
       
       - run:
-        command: |
-          cd algs4
-          mvn package # run the actual tests
+          command: |
+              cd algs4
+              mvn package # run the actual tests
       
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard. 
       # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
