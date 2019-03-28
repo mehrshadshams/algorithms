@@ -1,1 +1,1 @@
-[![Build Status](https://travis-ci.org/mehrshadshams/algorithms.svg?branch=master)](https://travis-ci.org/mehrshadshams/algorithms)
+[![CircleCI](https://circleci.com/gh/mehrshadshams/algorithms.svg?style=svg)](https://circleci.com/gh/mehrshadshams/algorithms)
