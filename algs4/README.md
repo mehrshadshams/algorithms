@@ -1,1 +1,1 @@
-[![Build Status](https://img.shields.io/circleci/project/github/spotify/scio/master.svg)](https://circleci.com/gh/mehrshadshams/algorithms)
+[![CircleCI](https://circleci.com/gh/mehrshadshams/algorithms/tree/master.svg?style=svg)](https://circleci.com/gh/mehrshadshams/algorithms/tree/master)
