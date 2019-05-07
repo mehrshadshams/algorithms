@@ -16,9 +16,11 @@ cache:
 build:
   stage: build
   script:
+    - cd algs4
     - mvn $MAVEN_CLI_OPTS compile
 
 test:
   stage: test
   script:
+    - cd algs4
     - mvn $MAVEN_CLI_OPTS test
