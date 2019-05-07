@@ -3,6 +3,7 @@ package com.mshams.cs.algs4;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.mshams.cs.algs4.utils.StdArray;
@@ -66,7 +67,7 @@ class SortTests {
         Assertions.assertTrue(StdArray.isSorted(output));
     }
 
-    @Test
+    @Test @Disabled
     void test_quick_sort() {
         int[] array = StdArray.range(1, 10);
         StdRandom.shuffle(array);

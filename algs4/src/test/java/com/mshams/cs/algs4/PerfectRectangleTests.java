@@ -1,7 +1,7 @@
 package com.mshams.cs.algs4;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.mshams.cs.algs4.problems.PerfectRectangle;
@@ -43,7 +43,7 @@ public class PerfectRectangleTests {
         Assertions.assertFalse(cover);
     }
     
-    @Test @Ignore
+    @Test @Disabled
     void test() {
         int[][] rectangles = new int[][]{{0,0,4,1},{7,0,8,2},{6,2,8,3},{5,1,6,3},{4,0,5,1},{6,0,7,2},{4,2,5,3},{2,1,4,3},{0,1,2,2},{0,2,2,3},{4,1,5,2},{5,0,6,1}};
 

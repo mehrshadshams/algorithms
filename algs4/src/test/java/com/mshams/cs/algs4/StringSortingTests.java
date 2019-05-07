@@ -3,6 +3,7 @@ package com.mshams.cs.algs4;
 import java.util.Random;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.mshams.cs.algs4.utils.StdArray;
@@ -24,7 +25,7 @@ public class StringSortingTests {
         Assertions.assertTrue(StdArray.isSorted(array));
     }
 
-    @Test
+    @Test @Disabled
     void test_msd_sort() {
         int maxLength = 3;
         String[] array = createArray(maxLength);
