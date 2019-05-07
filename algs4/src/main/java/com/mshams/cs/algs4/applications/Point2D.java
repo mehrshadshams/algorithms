@@ -5,6 +5,8 @@ import java.util.Comparator;
 public class Point2D implements Comparable<Point2D> {
     public static final Comparator<Point2D> X_ORDER = new XOrder();
     public static final Comparator<Point2D> Y_ORDER = new YOrder();
+    public static final Comparator<Point2D> X_Y_ORDER = new XYOrder();
+
     private final double x;
     private final double y;
 
@@ -52,6 +54,11 @@ public class Point2D implements Comparable<Point2D> {
         return 0;
     }
 
+    @Override
+    public String toString() {
+        return "{" + x + "," + y + "}";
+    }
+
     /**
      * Returns true if a→b→c is a counterclockwise turn.
      *
@@ -68,6 +75,17 @@ public class Point2D implements Comparable<Point2D> {
             return +1;
         else
             return 0;
+    }
+
+    public static double distanceSquared(Point2D a, Point2D b) {
+        double dx = (a.x - b.x);
+        double dy = (a.y - b.y);
+
+        return dx * dx + dy * dy;
+    }
+
+    public static double distance(Point2D a, Point2D b) {
+        return Math.sqrt(distanceSquared(a, b));
     }
 
     private static class XOrder implements Comparator<Point2D> {
@@ -88,6 +106,23 @@ public class Point2D implements Comparable<Point2D> {
                 return -1;
             if (p.y > q.y)
                 return +1;
+            return 0;
+        }
+    }
+
+    private static class XYOrder implements Comparator<Point2D> {
+        @Override
+        public int compare(Point2D p, Point2D q) {
+            if (p.x == q.x) {
+                if (p.y < q.y)
+                    return -1;
+                if (p.y > q.y)
+                    return +1;
+            } else if (p.x < q.x) {
+                return -1;
+            } else if (p.x > q.x) {
+                return +1;
+            }
             return 0;
         }
     }

@@ -1,5 +1,7 @@
 package com.mshams.cs.algs4.applications;
 
+import java.lang.Math;
+
 public class Vector {
     private final double dx;
     private final double dy;
@@ -15,6 +17,10 @@ public class Vector {
 
     public double y() {
         return dy;
+    }
+
+    public double magnitude() {
+        return Math.sqrt(magnitudeSquared());
     }
 
     public double magnitudeSquared() {
