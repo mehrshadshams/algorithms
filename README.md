@@ -1,4 +1,4 @@
-[![pipeline status](https://gitlab.com/mehrshad.shams/algorithms/badges/master/pipeline.svg)](https://gitlab.com/mehrshad.shams/algorithms/commits/master)
+[![Travis](https://travis-ci.org/mehrshadshams/algorithms.svg?branch=master)](https://travis-ci.org/mehrshadshams/algorithms.svg?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Algorithms and data structures
