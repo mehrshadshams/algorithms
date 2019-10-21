@@ -2,7 +2,12 @@ package com.mshams.cs.algorithms.selection;
 
 import com.mshams.cs.utils.StdArray;
 import com.mshams.cs.utils.StdRandom;
+import com.mshams.cs.utils.interfaces.Complexity;
 
+/**
+ * Find the k-th smallest number in a list
+ * Complexity: O(n) worst cast O(n^2)
+ */
 public class QuickSelect {
     public static Comparable select(Comparable[] a, int k) {
         StdRandom.shuffle(a);

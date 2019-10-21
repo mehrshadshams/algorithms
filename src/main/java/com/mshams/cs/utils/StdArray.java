@@ -1,5 +1,7 @@
 package com.mshams.cs.utils;
 
+import java.util.Collection;
+
 public class StdArray {
     public static int[] range(int start, int end) {
         if (start < 0 || end < 0 || end < start)
@@ -54,5 +56,19 @@ public class StdArray {
         }
 
         return true;
+    }
+
+    public static <E> void print(Collection<E> collection) {
+        for (E e : collection) {
+            System.out.print(e + " ");
+        }
+        System.out.println();
+    }
+
+    public static <E> void print(E[] collection) {
+        for (E e : collection) {
+            System.out.print(e + " ");
+        }
+        System.out.println();
     }
 }

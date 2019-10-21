@@ -7,6 +7,25 @@ public class Binary {
         return -1;
     }
 
+    /**
+     * Returns the index of largest key in this symbol table less than or equal to {@code key}.
+     * @param values
+     * @param x
+     * @return
+     */
+    public static int floor(Comparable[] values, Comparable x) {
+        int i = rank(values, x);
+        if (i == values.length) return -1;
+        if (i == 0) return -1;
+        return i - 1;
+    }
+
+    /**
+     * Returns the index of smallest key in this symbol table greater than or equal to x
+     * @param values
+     * @param x
+     * @return
+     */
     public static int ceiling(Comparable[] values, Comparable x) {
         int i = rank(values, x);
         if (i == values.length) return -1;

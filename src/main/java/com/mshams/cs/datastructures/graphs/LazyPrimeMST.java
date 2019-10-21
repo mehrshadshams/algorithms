@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+/**
+ * Prim's MST - Complexity O(m + nlg(n))
+ * m edges, n nodes
+ */
 public class LazyPrimeMST implements MST {
     private List<Edge> mst;
     private boolean[] marked;

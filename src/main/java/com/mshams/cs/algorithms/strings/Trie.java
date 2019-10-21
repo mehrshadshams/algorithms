@@ -130,7 +130,7 @@ public class Trie<TValue> {
 
     private Node put(Node node, String key, TValue value, int d) {
         if (node == null) {
-            return new Node();
+            node = new Node();
         }
 
         if (d >= key.length()) {
@@ -142,7 +142,7 @@ public class Trie<TValue> {
         }
 
         char c = key.charAt(d);
-        node.next[c] = put(node, key, value, d + 1);
+        node.next[c] = put(node.next[c], key, value, d + 1);
 
         return node;
     }

@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+/**
+ * Kruskal MST - Complexity O(m lg(m))
+ */
 public class KruskalMST implements MST {
     private final List<Edge> mst;
     private double weight;
