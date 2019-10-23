@@ -1,4 +1,4 @@
-package com.mshams.cs.problems;
+package com.mshams.cs.algorithms.dp;
 
 import com.mshams.cs.applications.Line;
 import com.mshams.cs.applications.Point2D;

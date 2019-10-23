@@ -1,4 +1,4 @@
-package com.mshams.cs.problems;
+package com.mshams.cs.algorithms.dp;
 
 public class EditDistance {
     private static final int MATCH = 0;

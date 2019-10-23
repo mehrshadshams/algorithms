@@ -4,10 +4,48 @@
 # Algorithms and data structures
 
 # Data Structures
-TBD
+- Arrays
+
+- Stack & Queues 
+    * Array Dequeue
+    * Array Stack
+    * Linked Stack
+    * Priority Queue
+    * Randomized Queue
+
+- Linked List
+  
+- Binary Search Tree (Balanced and unbalanced)
+    * BST
+    * Red Black Tree
+    * AVL Tree
+    * Skip List
+  
+- Heap
+  
+- Hashes
+  * Collision Resolution methods
+  *	Chaining
+  *	Open addressing
+  * Linear probing
+  * Polynomial probing
+  * Hash of hash probing
+  
+- Union-Find
+  
+- Suffix Trees
+
 
 # Algorithms
-TBD
+- Graphs
+    * DFS
+    * BFS
+    * Topological Sort
+    * Kruskal MST
+    * Prime MST
+    * Strong Connected Components
+    * Dijkstra
+    * MaxFlow
 
 ## Problems
 List of problems
