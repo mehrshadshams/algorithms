@@ -2,6 +2,9 @@ package com.mshams.cs.problems;
 
 /**
  * Finding the longest subsequence of a string that occurs at least twice
+ * Complexity:
+ *  - Top bottom, no memo: Time O(2^n) Space O(1)
+ *  - Bottom up., DP: Time O(n^2) Space O(n^2)
  */
 public class LongestRepeatingSubsequence {
     public String lrs(String s) {

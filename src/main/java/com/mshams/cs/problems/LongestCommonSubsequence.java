@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Longest Common Subsequence
+ * Complexity: O(n^2)
+ */
 public class LongestCommonSubsequence {
     public Collection<String> findLCS(String a, String b) {
         int m = a.length(), n = b.length();

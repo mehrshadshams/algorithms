@@ -3,6 +3,9 @@ package com.mshams.cs.datastructures.graphs;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Complexity: O(m * C) where m is number of edges and C is maximum capacity out of S
+ */
 public class FordFulkerson {
     private boolean[] marked;
     private FlowEdge[] edgeTo;

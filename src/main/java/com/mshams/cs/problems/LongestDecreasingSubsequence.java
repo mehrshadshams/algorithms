@@ -3,13 +3,13 @@ package com.mshams.cs.problems;
 import java.util.Arrays;
 
 /**
- * Longest Increasing Subsequence
+ * Longest Decreasing Subsequence
  * Complexity:
  * - Top bottom, no memoization: Time O(2^n) Space O(1)
  * - Top bottom, memoization: TBD
  * - Bottom up: Time O(n^2)
  */
-public class LongestIncreasingSubsequence {
+public class LongestDecreasingSubsequence {
     public int findLisLength(int[] array) {
         return findLisLength(array, 0, Integer.MIN_VALUE);
     }
@@ -20,7 +20,7 @@ public class LongestIncreasingSubsequence {
 
         for (int i = 1; i < array.length; i++) {
             for (int j = 0; j < i; j++) {
-                if (array[j] < array[i] && dp[j] > dp[i]) {
+                if (array[j] < array[i] && dp[j] < dp[i]) {
                     dp[i] = dp[j];
                 }
             }
@@ -36,7 +36,7 @@ public class LongestIncreasingSubsequence {
         }
 
         int incl = Integer.MIN_VALUE;
-        if (array[i] > prev) {
+        if (array[i] < prev) {
             incl = 1 + findLisLength(array, i + 1, array[i]);
         }
 

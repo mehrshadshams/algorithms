@@ -47,22 +47,22 @@
     * Dijkstra
     * MaxFlow
 
-## Problems
+## Computer Science Problems
 List of problems
 
 ### Leetcode
 
-* [Product of Array Except Self](https://github.com/mehrshadshams/algorithms/blob/master/algs4/src/main/java/com/mshams/cs/books/skienna/chapter3/ProductOfArrayExceptSelf.java)
+* [Product of Array Except Self](https://github.com/mehrshadshams/algorithms/blob/master/algs4/src/main/java/com/mshams/cs/books/skienna/chapter3/ProductOfArrayExceptSelf.java) - **O(n)**
 
 ### Dynamic Programming
-- Longest Common Subsequence 
-- Longest Common Substring problem
+- Longest Common Subsequence
+- [Longest Common Substring](https://github.com/mehrshadshams/algorithms/blob/master/src/main/java/com/mshams/cs/problems/LongestCommonSubsequence.java) - **O(n<sup>2</sup>)**
 - Longest Palindromic Subsequence
 - Longest Repeated Subsequence Problem
 - Implement Diff Utility
 - Shortest Common Supersequence
 - Longest Increasing Subsequence
-- Longest Bitonic Subsequence
+- [Longest Bitonic Subsequence](https://github.com/mehrshadshams/algorithms/blob/master/src/main/java/com/mshams/cs/problems/LongestBitonicSequence.java) - **O(n<sup>2</sup>)**
 - Increasing Subsequence with Maximum Sum
 - The Levenshtein distance (Edit distance) problem
 - Find size of largest square sub-matrix of 1’s present in given binary matrix
@@ -73,7 +73,9 @@ List of problems
 - 0–1 Knapsack problem
 - Maximize the Value of an Expression
 - Partition problem | Dynamic Programming Solution
-- Subset Sum Problem
+- [Subset Sum Problem](https://github.com/mehrshadshams/algorithms/blob/master/src/main/java/com/mshams/cs/problems/SubsetSum.java)
+  * Backtracking **O(2^n)** **Space O(1)**
+  * DP **Time O(n * S)** **Space O(n * S)**
 - Minimum Sum Partition Problem
 - Find all N-digit binary strings without any consecutive 1’s
 - Rod Cutting Problem
@@ -103,3 +105,5 @@ List of problems
 - 3-Partition Problem
 - Calculate the size of the largest plus of 1’s in binary matrix
 - Check if given string is interleaving of two other given strings
+
+*Source: https://blog.usejournal.com/top-50-dynamic-programming-practice-problems-4208fed71aa3*
