@@ -1,6 +1,6 @@
 package com.mshams.cs.algorithms.strings;
 
-public class RabinCarp {
+public class RabinKarp {
     private static final int R = 256;
     private static final int Q = 997;
 
@@ -8,7 +8,7 @@ public class RabinCarp {
     private final long patternHash;
     private final int RM;
 
-    public RabinCarp(String pat) {
+    public RabinKarp(String pat) {
         this.pattern = pat;
         patternHash = hash(pattern, pat.length());
 
