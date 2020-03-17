@@ -94,20 +94,20 @@
             </plugin>
 
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-pmd-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<failOnViolation>true-->
-                    <!--</failOnViolation> &lt;!&ndash; this is actually true by default, but can be disabled &ndash;&gt;-->
-                    <!--<printFailingErrors>true</printFailingErrors>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>check</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-pmd-plugin</artifactId>-->
+            <!--<configuration>-->
+            <!--<failOnViolation>true-->
+            <!--</failOnViolation> &lt;!&ndash; this is actually true by default, but can be disabled &ndash;&gt;-->
+            <!--<printFailingErrors>true</printFailingErrors>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<goals>-->
+            <!--<goal>check</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
         </plugins>
     </build>

@@ -8,12 +8,12 @@ import com.mshams.cs.utils.interfaces.ComplexityLevel;
  */
 @Complexity(ComplexityLevel.EASY)
 public class SingleNumberI {
-    public static void main(String[] args) {
-        int[] nums = new int[]{4, 1, 2, 2, 1};
-        int one = 0;
-        for (int v : nums) {
-            one = one ^ v;
-        }
-        System.out.println(one);
+  public static void main(String[] args) {
+    int[] nums = new int[]{4, 1, 2, 2, 1};
+    int one = 0;
+    for (int v : nums) {
+      one = one ^ v;
     }
+    System.out.println(one);
+  }
 }

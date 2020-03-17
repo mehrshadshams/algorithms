@@ -1,7 +1,7 @@
 package com.mshams.cs.datastructures.graphs;
 
 public interface MST {
-    Iterable<Edge> edges();
+  Iterable<Edge> edges();
 
-    double weight();
+  double weight();
 }

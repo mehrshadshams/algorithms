@@ -1,13 +1,13 @@
 package com.mshams.cs.datastructures.collections;
 
 public interface Stack<Item> extends Iterable<Item> {
-    void push(Item item);
+  void push(Item item);
 
-    Item pop();
+  Item pop();
 
-    Item peek();
+  Item peek();
 
-    boolean isEmpty();
+  boolean isEmpty();
 
-    int size();
+  int size();
 }

@@ -9,15 +9,15 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class LongestCommonSubsequenceTest {
-    private static final String WORD1 = "ABCBDAB";
-    private static final String WORD2 = "BDCABA";
+  private static final String WORD1 = "ABCBDAB";
+  private static final String WORD2 = "BDCABA";
 
-    @Test
-    public void test1() {
-        LongestCommonSubsequence lcs = new LongestCommonSubsequence();
+  @Test
+  public void test1() {
+    LongestCommonSubsequence lcs = new LongestCommonSubsequence();
 
-        Collection<String> result = lcs.findLCS(WORD1, WORD2);
+    Collection<String> result = lcs.findLCS(WORD1, WORD2);
 
-        Assertions.assertEquals(Sets.newHashSet("BDAB", "BCAB", "BCBA"), new HashSet<>(result));
-    }
+    Assertions.assertEquals(Sets.newHashSet("BDAB", "BCAB", "BCBA"), new HashSet<>(result));
+  }
 }

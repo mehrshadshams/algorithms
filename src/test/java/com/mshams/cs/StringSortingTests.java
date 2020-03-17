@@ -12,52 +12,52 @@ import java.util.Random;
 
 public class StringSortingTests {
 
-    private static final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+  private static final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
-    private static String[] createArray(int maxLength) {
-        String[] array = new String[10];
+  private static String[] createArray(int maxLength) {
+    String[] array = new String[10];
 
-        Random random = new Random();
-        for (int i = 0; i < array.length; i++) {
-            char[] c = new char[maxLength];
-            for (int j = 0; j < maxLength; j++) {
-                c[j] = ALPHABET[random.nextInt(ALPHABET.length)];
-            }
+    Random random = new Random();
+    for (int i = 0; i < array.length; i++) {
+      char[] c = new char[maxLength];
+      for (int j = 0; j < maxLength; j++) {
+        c[j] = ALPHABET[random.nextInt(ALPHABET.length)];
+      }
 
-            array[i] = new String(c);
-        }
-
-        return array;
+      array[i] = new String(c);
     }
 
-    @Test
-    void test_lsd_sort() {
-        int maxLength = 3;
-        String[] array = createArray(maxLength);
+    return array;
+  }
 
-        LSD.sort(array, maxLength);
+  @Test
+  void test_lsd_sort() {
+    int maxLength = 3;
+    String[] array = createArray(maxLength);
 
-        Assertions.assertTrue(StdArray.isSorted(array));
-    }
+    LSD.sort(array, maxLength);
 
-    @Test
-    @Disabled
-    void test_msd_sort() {
-        int maxLength = 3;
-        String[] array = createArray(maxLength);
+    Assertions.assertTrue(StdArray.isSorted(array));
+  }
 
-        MSD.sort(array, maxLength);
+  @Test
+  @Disabled
+  void test_msd_sort() {
+    int maxLength = 3;
+    String[] array = createArray(maxLength);
 
-        Assertions.assertTrue(StdArray.isSorted(array));
-    }
+    MSD.sort(array, maxLength);
 
-    @Test
-    void test_quick3_string_sort() {
-        int maxLength = 100;
-        String[] array = createArray(maxLength);
+    Assertions.assertTrue(StdArray.isSorted(array));
+  }
 
-        Quick3string.sort(array);
+  @Test
+  void test_quick3_string_sort() {
+    int maxLength = 100;
+    String[] array = createArray(maxLength);
 
-        Assertions.assertTrue(StdArray.isSorted(array));
-    }
+    Quick3string.sort(array);
+
+    Assertions.assertTrue(StdArray.isSorted(array));
+  }
 }

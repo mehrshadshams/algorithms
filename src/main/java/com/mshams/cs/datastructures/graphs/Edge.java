@@ -1,30 +1,30 @@
 package com.mshams.cs.datastructures.graphs;
 
 public class Edge implements Comparable<Edge> {
-    private final int v;
-    private final int w;
-    private final double weight;
+  private final int v;
+  private final int w;
+  private final double weight;
 
-    public Edge(int v, int w, double weight) {
-        this.v = v;
-        this.w = w;
-        this.weight = weight;
-    }
+  public Edge(int v, int w, double weight) {
+    this.v = v;
+    this.w = w;
+    this.weight = weight;
+  }
 
-    public int either() {
-        return v;
-    }
+  public int either() {
+    return v;
+  }
 
-    public int other(int vertex) {
-        return vertex == v ? vertex : w;
-    }
+  public int other(int vertex) {
+    return vertex == v ? vertex : w;
+  }
 
-    public double weight() {
-        return this.weight;
-    }
+  public double weight() {
+    return this.weight;
+  }
 
-    @Override
-    public int compareTo(Edge o) {
-        return Double.compare(weight, o.weight);
-    }
+  @Override
+  public int compareTo(Edge o) {
+    return Double.compare(weight, o.weight);
+  }
 }

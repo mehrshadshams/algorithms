@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class LongestSubsequenceTest {
-    @Test
-    void test() {
-        String s = "abppplee";
-        String[] dict = {"able", "ale", "apple", "bale", "kangaroo"};
+  @Test
+  void test() {
+    String s = "abppplee";
+    String[] dict = {"able", "ale", "apple", "bale", "kangaroo"};
 
-        String lcs = LongestSubsequence.find(s, dict);
+    String lcs = LongestSubsequence.find(s, dict);
 
-        Assertions.assertEquals("apple", lcs);
-    }
+    Assertions.assertEquals("apple", lcs);
+  }
 }
