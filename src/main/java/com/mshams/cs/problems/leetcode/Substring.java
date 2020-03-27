@@ -3,6 +3,9 @@ package com.mshams.cs.problems.leetcode;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+ */
 public class Substring {
   public List<Integer> findSubstring(String s, String[] words) {
     List<Suffix> suffixes = new ArrayList<>();

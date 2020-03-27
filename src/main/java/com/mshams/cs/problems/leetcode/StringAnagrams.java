@@ -13,7 +13,6 @@ class StringAnagrams {
     for (char c : pattern.toCharArray()) {
       map.put(c, map.getOrDefault(c, 0) + 1);
     }
-    Map<Character, Integer> lastIndex = new HashMap<>();
     int matched = 0, ws = 0;
     for (int i = 0; i < str.length(); i++) {
       char c = str.charAt(i);

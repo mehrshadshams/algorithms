@@ -1,7 +1,11 @@
 package com.mshams.cs.problems.leetcode;
 
+/**
+ * https://leetcode.com/problems/shortest-palindrome/
+ */
 public class ShortestPalindrome {
   public String shortestPalindrome(String s) {
+    if (s.length() <= 1) return s;
     int n = s.length();
     String rev = new StringBuilder(s).reverse().toString();
     String p = s + "#" + rev;

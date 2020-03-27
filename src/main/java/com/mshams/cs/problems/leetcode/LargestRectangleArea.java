@@ -2,6 +2,9 @@ package com.mshams.cs.problems.leetcode;
 
 import java.util.Stack;
 
+/**
+ * https://leetcode.com/problems/largest-rectangle-in-histogram/
+ */
 public class LargestRectangleArea {
   public int largestRectangleArea(int[] heights) {
     Stack<Integer> stack = new Stack<>();

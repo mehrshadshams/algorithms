@@ -31,6 +31,17 @@ package com.mshams.cs.problems.leetcode;
  */
 public class JumpingGameII {
   public int jump(int[] nums) {
-    throw new RuntimeException("");
+    if (nums.length < 2) return 0;
+    int n = nums.length;
+    int maxReach = nums[0], maxReachStep = nums[0];
+    int jumps = 1;
+    for (int i = 1; i < n; i++) {
+      if (i > maxReachStep) {
+        jumps++;
+        maxReachStep = maxReach;
+      }
+      maxReach = Math.max(maxReach, i + nums[i]);
+    }
+    return jumps;
   }
 }

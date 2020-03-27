@@ -2,7 +2,10 @@ package com.mshams.cs.problems.leetcode;
 
 import java.util.*;
 
-public class WordLaddedII {
+/**
+ * https://leetcode.com/problems/word-ladder-ii/
+ */
+public class WordLadderII {
   public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
     Map<String, List<String>> wordMap = new HashMap<>();
 
@@ -61,7 +64,7 @@ public class WordLaddedII {
   }
 
   public static void main(String[] args) {
-    WordLaddedII w = new WordLaddedII();
+    WordLadderII w = new WordLadderII();
     w.findLadders("hit", "cog",
             Arrays.asList("hot", "dot", "dog", "lot", "log", "cog"));
 
